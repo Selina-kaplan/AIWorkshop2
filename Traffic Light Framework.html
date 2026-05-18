@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assessment Redesign Canvas</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #607086;
+      --line: #d8dee8;
+      --soft: #f6f8fb;
+      --blue: #253a7d;
+      --red: #e53935;
+      --amber: #f59e0b;
+      --green: #22c55e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #eef2f7;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    header {
+      background: linear-gradient(135deg, #20205f, #2e4c9b);
+      color: white;
+      padding: 28px 20px;
+    }
+
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    h1, h2, h3 { margin: 0 0 10px; }
+    h1 { font-size: 30px; }
+    h2 { font-size: 22px; color: var(--blue); }
+    h3 { font-size: 17px; }
+
+    .subtitle {
+      max-width: 820px;
+      margin: 8px 0 0;
+      color: #e7ecff;
+      font-size: 15px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 22px auto;
+      padding: 0 16px 40px;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(238, 242, 247, 0.94);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 0;
+      margin-bottom: 18px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--blue);
+      color: white;
+    }
+
+    button.secondary {
+      background: white;
+      color: var(--blue);
+      border: 1px solid var(--line);
+    }
+
+    .page {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 26px rgba(23, 32, 51, 0.08);
+    }
+
+    .page-label {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #e9edff;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .section {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 18px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #354055;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"], select, textarea {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 9px 10px;
+      font: inherit;
+      background: white;
+    }
+
+    textarea { min-height: 82px; resize: vertical; }
+
+    .checks {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px 14px;
+    }
+
+    .check-item, .radio-card {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 9px;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .radio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .radio-card strong { display: block; margin-bottom: 3px; }
+    .red { border-color: #ffc4c4; background: #fff2f2; }
+    .amber { border-color: #fed7aa; background: #fff7ed; }
+    .green { border-color: #bbf7d0; background: #f0fdf4; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 9px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f1f5f9;
+      text-align: left;
+      color: #334155;
+      font-size: 13px;
+    }
+
+    td textarea { min-height: 70px; }
+    .hint { color: var(--muted); font-size: 13px; margin: 4px 0 10px; }
+    .small-note { font-size: 12px; color: var(--muted); }
+    .save-status { font-size: 12px; color: #166534; font-weight: 700; }
+
+    .reference-card, .suggestion-box, .protocol-panel {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: #fbfdff;
+      margin-top: 14px;
+    }
+
+    .reference-card details summary {
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+
+    .traffic-reference-image {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: white;
+      margin-top: 12px;
+    }
+
+    .protocol-panel { display: none; }
+    .protocol-panel.active { display: block; }
+
+    .protocol-preview {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .protocol-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: #f8fafc;
+      font-size: 13px;
+    }
+
+    .suggested-level {
+      display: inline-block;
+      margin: 10px 0;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      color: white;
+      background: var(--blue);
+    }
+
+    .suggested-level.red-badge { background: var(--red); }
+    .suggested-level.amber-badge { background: var(--amber); color: #442400; }
+    .suggested-level.green-badge { background: var(--green); color: #063b18; }
+
+    .score-row {
+      display: grid;
+      grid-template-columns: 90px 1fr 42px;
+      gap: 8px;
+      align-items: center;
+      margin: 6px 0;
+      font-size: 13px;
+    }
+
+    .score-bar {
+      height: 10px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .score-fill { height: 100%; background: var(--blue); }
+
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .example {
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fbfdff;
+      padding: 14px;
+    }
+
+    .principle {
+      margin-top: 16px;
+      padding: 14px;
+      border-left: 6px solid var(--blue);
+      background: #eef2ff;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .summary-box {
+      white-space: pre-wrap;
+      background: #0f172a;
+      color: #e5e7eb;
+      border-radius: 14px;
+      padding: 14px;
+      min-height: 120px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+
+    @media (max-width: 820px) {
+      .grid-2, .checks, .radio-grid, .examples, .protocol-preview { grid-template-columns: 1fr; }
+      .toolbar { position: static; }
+    }
+
+    @media print {
+      body { background: white; }
+      header, .toolbar, .summary-section { display: none; }
+      main { margin: 0; padding: 0; max-width: none; }
+      .page { box-shadow: none; border: 1px solid #999; border-radius: 0; page-break-after: always; }
+      input, select, textarea { border: 1px solid #999; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Assessment Redesign Canvas</h1>
+      <p class="subtitle">AI Traffic Light + Think First Protocol. Redesign one assessment while preserving authentic student thinking, judgement, and learning.</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="toolbar">
+      <div>
+        <strong>Lecturer tool</strong><br>
+        <span class="small-note">Complete the fields, generate a suggestion, then print or save as PDF.</span>
+      </div>
+      <div id="saveStatus" class="save-status">Autosave enabled</div>
+      <div class="btns">
+        <button type="button" onclick="generateSummary()">Generate Summary</button>
+        <button type="button" class="secondary" onclick="window.print()">Print / Save PDF</button>
+        <button type="button" class="secondary" onclick="resetCanvas()">Reset</button>
+      </div>
+    </div>
+
+    <section class="page">
+      <span class="page-label">Page 1</span>
+      <h2>Analyse + Decide</h2>
+
+      <div class="reference-card">
+        <details open>
+          <summary>AI Assessment Traffic Light System reference</summary>
+          <p class="hint">Use this reference while completing the canvas. Green means AI is required, Amber means AI is permitted and declared, and Red means AI is not permitted.</p>
+          <img class="traffic-reference-image" src="Taffic%20Light%20System.png" alt="AI Assessment Traffic Light System reference showing Green, Amber, and Red levels.">
+          <p class="small-note">Hosting note: keep this HTML file and the image file named <strong>Taffic Light System.png</strong> in the same folder.</p>
+        </details>
+      </div>
+
+      <div class="section">
+        <h3>1. Assessment Snapshot</h3>
+        <div class="grid-2">
+          <div><label for="module">Module / Subject</label><input type="text" id="module"></div>
+          <div><label for="title">Assessment Title</label><input type="text" id="title"></div>
+          <div><label for="type">Assessment Type</label><select id="type"><option></option><option>Essay</option><option>Report</option><option>Presentation</option><option>Practical</option><option>Coding</option><option>Case Study</option><option>Other</option></select></div>
+          <div><label for="mode">Individual or Group</label><select id="mode"><option></option><option>Individual</option><option>Group</option><option>Both</option></select></div>
+          <div><label for="weightage">Weightage</label><input type="text" id="weightage" placeholder="e.g. 40%"></div>
+          <div><label for="policy">Current AI Policy</label><input type="text" id="policy" placeholder="e.g. Not stated / AI prohibited / AI allowed with declaration"></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>2. What Are Students Really Being Assessed On?</h3>
+        <p class="hint">Tick the 3-5 most important.</p>
+        <div class="checks" id="capabilities"></div>
+      </div>
+
+      <div class="section">
+        <h3>3. Where Will AI Most Likely Be Used To Shortcut Learning?</h3>
+        <table>
+          <thead><tr><th>Assessment Component</th><th>Risk Level</th></tr></thead>
+          <tbody>
+            <tr><td><textarea id="risk1"></textarea></td><td><select id="riskLevel1"><option></option><option>High</option><option>Medium</option><option>Low</option></select></td></tr>
+            <tr><td><textarea id="risk2"></textarea></td><td><select id="riskLevel2"><option></option><option>High</option><option>Medium</option><option>Low</option></select></td></tr>
+            <tr><td><textarea id="risk3"></textarea></td><td><select id="riskLevel3"><option></option><option>High</option><option>Medium</option><option>Low</option></select></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>4. What Human Thinking Must Remain Visible?</h3>
+        <label for="humanThinking">Students must still demonstrate</label>
+        <textarea id="humanThinking" placeholder="Describe the thinking, judgement, decision-making, critique, interpretation, or professional reasoning that must be visible."></textarea>
+      </div>
+
+      <div class="section">
+        <h3>5. Choose the AI Traffic Light Level</h3>
+        <p class="hint">Select one. You may use the suggested level as a starting point.</p>
+        <div class="suggestion-box">
+          <h3>Suggested Traffic Light Level</h3>
+          <p class="hint">This suggestion is based on assessment type, learning outcomes, AI shortcut risks, and rationale.</p>
+          <button type="button" onclick="suggestTrafficLevel()">Suggest Level</button>
+          <button type="button" class="secondary" onclick="applySuggestedLevel()">Apply Suggested Level</button>
+          <div id="suggestedLevel" class="suggested-level">Not generated yet</div>
+          <div id="suggestedReason" class="hint"></div>
+          <div id="scoreBreakdown"></div>
+        </div>
+        <div class="radio-grid">
+          <label class="radio-card red"><input type="radio" name="traffic" value="RED"><span><strong>RED</strong> Independent mastery. Students complete work without AI support.</span></label>
+          <label class="radio-card amber"><input type="radio" name="traffic" value="AMBER"><span><strong>AMBER</strong> AI-supported thinking. Students use AI to expand, challenge, or refine ideas.</span></label>
+          <label class="radio-card green"><input type="radio" name="traffic" value="GREEN"><span><strong>GREEN</strong> Human + AI collaboration. Students strategically use AI to solve problems and create outputs.</span></label>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>6. Why This Level?</h3>
+        <p class="hint">This assessment should:</p>
+        <div class="checks" id="reasons"></div>
+      </div>
+    </section>
+
+    <section class="page">
+      <span class="page-label">Page 2</span>
+      <h2>Redesign + Evidence</h2>
+
+      <div class="section">
+        <h3>1. Redesign the Assessment Workflow</h3>
+        <table>
+          <thead><tr><th>Before AI<br><span class="small-note">What students must do independently</span></th><th>With AI<br><span class="small-note">How AI may be used</span></th><th>After AI<br><span class="small-note">What students must verify, defend, refine, or justify</span></th></tr></thead>
+          <tbody>
+            <tr><td><textarea id="before1"></textarea></td><td><textarea id="with1"></textarea></td><td><textarea id="after1"></textarea></td></tr>
+            <tr><td><textarea id="before2"></textarea></td><td><textarea id="with2"></textarea></td><td><textarea id="after2"></textarea></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>2. Think First Protocol Selection</h3>
+        <p class="hint">Choose one protocol. The matching fields will appear immediately below.</p>
+
+        <label for="protocolSelect">Chosen Think First Protocol</label>
+        <select id="protocolSelect">
+          <option value="">Select a protocol</option>
+          <option value="collectThinkConsult">Protocol 1: Collect - Think - Consult</option>
+          <option value="secondCollaborator">Protocol 2: AI as the Second Collaborator</option>
+          <option value="counterChallenge">Protocol 3: AI Counter-Challenge</option>
+        </select>
+
+        <div class="protocol-preview">
+          <div class="protocol-card"><strong>Protocol 1</strong><br>Best for evidence gathering, analysis, comparison, and verification.</div>
+          <div class="protocol-card"><strong>Protocol 2</strong><br>Best for group work, creative reasoning, and using AI as an extra perspective.</div>
+          <div class="protocol-card"><strong>Protocol 3</strong><br>Best for claims, hypotheses, essays, and counterarguments.</div>
+        </div>
+
+        <div id="protocolHelp" class="hint">Choose one protocol to see the matching redesign fields.</div>
+
+        <div id="panel_collectThinkConsult" class="protocol-panel">
+          <h3>Protocol 1: Collect - Think - Consult</h3>
+          <p class="hint">Students collect evidence first, analyse independently, consult AI, then verify AI suggestions against evidence.</p>
+          <table>
+            <tbody>
+              <tr><th>COLLECT</th><td><textarea id="p1_collect" placeholder="What evidence, examples, data, sources, or observations must students collect without AI?"></textarea></td></tr>
+              <tr><th>THINK</th><td><textarea id="p1_think" placeholder="How will students sort, compare, infer patterns, or form their own conclusions?"></textarea></td></tr>
+              <tr><th>CONSULT</th><td><textarea id="p1_consult" placeholder="How may AI expand, challenge, or question their initial findings?"></textarea></td></tr>
+              <tr><th>VERIFY</th><td><textarea id="p1_verify" placeholder="How will students check AI suggestions and decide what to keep or reject?"></textarea></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="panel_secondCollaborator" class="protocol-panel">
+          <h3>Protocol 2: AI as the Second Collaborator</h3>
+            <tr><td><textarea id="risk1"></textarea></td><td><select id="riskLevel1"><option></option><option>High</option><option>Medium</option><option>Low</option></select></td></tr>
+            <tr><td><textarea id="risk2"></textarea></td><td><select id="riskLevel2"><option></option><option>High</option><option>Medium</option><option>Low</option></select></td></tr>
+            <tr><td><textarea id="risk3"></textarea></td><td><select id="riskLevel3"><option></option><option>High</option><option>Medium</option><option>Low</option></select></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>4. What Human Thinking Must Remain Visible?</h3>
+        <label for="humanThinking">Students must still demonstrate</label>
+        <textarea id="humanThinking" placeholder="Describe the thinking, judgement, decision-making, critique, interpretation, or professional reasoning that must be visible."></textarea>
+      </div>
+
+      <div class="section">
+        <h3>5. Choose the AI Traffic Light Level</h3>
+        <p class="hint">Select one. You may also use the suggested level below as a starting point.</p>
+
+        <div class="suggestion-box">
+          <h3>Suggested Traffic Light Level</h3>
+          <p class="hint">This suggestion is based on assessment type, core learning outcomes, AI shortcut risks, and rationale. It is a guide only; lecturer judgement remains final.</p>
+          <button type="button" onclick="suggestTrafficLevel()">Suggest Level</button>
+          <button type="button" class="secondary" onclick="applySuggestedLevel()">Apply Suggested Level</button>
+          <div id="suggestedLevel" class="suggested-level">Not generated yet</div>
+          <div id="suggestedReason" class="hint"></div>
+          <div id="scoreBreakdown"></div>
+        </div>
+
+        <div class="radio-grid">
+          <label class="radio-card red"><input type="radio" name="traffic" value="RED"><span><strong>RED</strong> Independent mastery. Students complete work without AI support.</span></label>
+          <label class="radio-card amber"><input type="radio" name="traffic" value="AMBER"><span><strong>AMBER</strong> AI-supported thinking. Students use AI to expand, challenge, or refine ideas.</span></label>
+          <label class="radio-card green"><input type="radio" name="traffic" value="GREEN"><span><strong>GREEN</strong> Human + AI collaboration. Students strategically use AI to solve problems and create outputs.</span></label>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>6. Why This Level?</h3>
+        <p class="hint">This assessment should:</p>
+        <div class="checks" id="reasons"></div>
+      </div>
+    </section>
+
+    <section class="page">
+      <span class="page-label">Page 2</span>
+      <h2>Redesign + Evidence</h2>
+
+      <div class="section">
+        <h3>1. Redesign the Assessment Workflow</h3>
+        <table>
+          <thead><tr><th>Before AI<br><span class="small-note">What students must do independently</span></th><th>With AI<br><span class="small-note">How AI may be used</span></th><th>After AI<br><span class="small-note">What students must verify, defend, refine, or justify</span></th></tr></thead>
+          <tbody>
+            <tr><td><textarea id="before1"></textarea></td><td><textarea id="with1"></textarea></td><td><textarea id="after1"></textarea></td></tr>
+            <tr><td><textarea id="before2"></textarea></td><td><textarea id="with2"></textarea></td><td><textarea id="after2"></textarea></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>2. Think First Protocol Selection</h3>
+        <p class="hint">Select the protocol that best fits the redesigned assessment. The relevant fields will appear below.</p>
+
+        <label for="protocolSelect">Chosen Think First Protocol</label>
+        <select id="protocolSelect" class="protocol-choice" onchange="showProtocolFields(); saveToLocalStorage();">
+          <option value=""></option>
+          <option value="collectThinkConsult">Protocol 1: Collect - Think - Consult</option>
+          <option value="secondCollaborator">Protocol 2: AI as the Second Collaborator</option>
+          <option value="counterChallenge">Protocol 3: AI Counter-Challenge</option>
+        </select>
+
+        <div id="protocolHelp" class="hint">Choose one protocol to see the matching redesign fields.</div>
+
+        <div id="panel_collectThinkConsult" class="protocol-panel">
+          <h3>Protocol 1: Collect - Think - Consult</h3>
+          <p class="hint">Use this when the assessment requires evidence gathering, analysis, comparison, and verification before AI enters.</p>
+          <table>
+            <thead><tr><th>Stage</th><th>Student Activity</th></tr></thead>
+            <tbody>
+              <tr><th>COLLECT</th><td><textarea id="p1_collect" placeholder="What evidence, examples, data, sources, or observations must students collect without AI?"></textarea></td></tr>
+              <tr><th>THINK</th><td><textarea id="p1_think" placeholder="How will students sort, compare, infer patterns, or form their own initial conclusions?"></textarea></td></tr>
+              <tr><th>CONSULT</th><td><textarea id="p1_consult" placeholder="How may AI expand, challenge, or question their initial findings?"></textarea></td></tr>
+              <tr><th>VERIFY</th><td><textarea id="p1_verify" placeholder="How will students check AI suggestions against their original evidence and decide what to keep or reject?"></textarea></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="panel_secondCollaborator" class="protocol-panel">
+          <h3>Protocol 2: AI as the Second Collaborator</h3>
+          <p class="hint">Use this when students work in pairs or groups, then invite AI as an additional perspective rather than the dominant voice.</p>
+          <table>
+            <thead><tr><th>Stage</th><th>Student Activity</th></tr></thead>
+            <tbody>
+              <tr><th>HUMAN COLLABORATION FIRST</th><td><textarea id="p2_human" placeholder="What must students discuss, brainstorm, draft, or decide in pairs/groups before AI?"></textarea></td></tr>
+              <tr><th>AI AS ADDITIONAL VIEW</th><td><textarea id="p2_ai" placeholder="What third perspective, alternative idea, or missing angle should AI be asked to provide?"></textarea></td></tr>
+              <tr><th>GROUP EVALUATION</th><td><textarea id="p2_evaluate" placeholder="How will students compare human ideas with AI suggestions and decide what is strongest?"></textarea></td></tr>
+              <tr><th>REVISION + CONTRIBUTION TRACE</th><td><textarea id="p2_trace" placeholder="How will students show what came from themselves, peers, and AI?"></textarea></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="panel_counterChallenge" class="protocol-panel">
+          <h3>Protocol 3: AI Counter-Challenge</h3>
+          <p class="hint">Use this when students must defend, refine, or rethink an initial claim, thesis, hypothesis, solution, or interpretation.</p>
+          <table>
+            <thead><tr><th>Stage</th><th>Student Activity</th></tr></thead>
+            <tbody>
+              <tr><th>INITIAL CLAIM</th><td><textarea id="p3_claim" placeholder="What claim, thesis, hypothesis, solution, interpretation, or position must students form first?"></textarea></td></tr>
+              <tr><th>AI COUNTER-CHALLENGE</th><td><textarea id="p3_counter" placeholder="How will AI be prompted to generate a counterargument, counterexample, weakness, or alternative explanation?"></textarea></td></tr>
+              <tr><th>DEFEND OR REFINE</th><td><textarea id="p3_defend" placeholder="How must students defend their original position or refine it in response to the challenge?"></textarea></td></tr>
+              <tr><th>VERIFY CLAIMS</th><td><textarea id="p3_verify" placeholder="How will students verify both their own claims and the AI-generated challenge?"></textarea></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>3. Evidence of Thinking</h3>
+        <p class="hint">Tick what students will submit.</p>
+        <div class="checks" id="evidence"></div>
+      </div>
+
+      <div class="section">
+        <h3>4. What Will Be Assessed?</h3>
+        <table>
+          <thead><tr><th>Assessment Criteria</th><th>Evidence Students Must Show</th></tr></thead>
+          <tbody>
+            <tr><td><textarea id="criteria1"></textarea></td><td><textarea id="show1"></textarea></td></tr>
+            <tr><td><textarea id="criteria2"></textarea></td><td><textarea id="show2"></textarea></td></tr>
+            <tr><td><textarea id="criteria3"></textarea></td><td><textarea id="show3"></textarea></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>5. Practical Implementation</h3>
+        <table>
+          <thead><tr><th>Challenge</th><th>Possible Solution</th></tr></thead>
+          <tbody>
+            <tr><td><textarea id="challenge1"></textarea></td><td><textarea id="solution1"></textarea></td></tr>
+            <tr><td><textarea id="challenge2"></textarea></td><td><textarea id="solution2"></textarea></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>6. Final Reflection</h3>
+        <label for="reflection">This redesign strengthens learning because:</label>
+        <textarea id="reflection"></textarea>
+      </div>
+
+      <div class="section">
+        <h3>Quick Discipline Examples</h3>
+        <div class="examples">
+          <div class="example"><strong>Accounting</strong><br>Students compare their financial interpretation with AI-generated explanations and justify differences.</div>
+          <div class="example"><strong>IT</strong><br>Students use AI-generated code suggestions but explain debugging and optimisation decisions.</div>
+          <div class="example"><strong>Psychology</strong><br>Students defend or refine their thesis after AI generates counterarguments.</div>
+        </div>
+        <div class="principle">Key principle: Students should use AI to demonstrate how they think, not just produce answers.</div>
+      </div>
+    </section>
+
+    <section class="page summary-section">
+      <span class="page-label">Export</span>
+      <h2>Generated Summary</h2>
+      <p class="hint">Use this as a draft assessment redesign note or paste it into a module document.</p>
+      <div id="summary" class="summary-box">Click Generate Summary.</div>
+    </section>
+  </main>
+
+  <script>
+    "use strict";
+
+    var capabilityList = [
+      "Knowledge recall", "Critical analysis", "Problem-solving", "Reflection", "Creativity / innovation",
+      "Communication", "Professional judgement", "Ethical reasoning", "Technical accuracy", "Data interpretation",
+      "Computational thinking", "Research skills", "Collaboration", "Evidence evaluation", "Argument development"
+    ];
+
+    var evidenceList = [
+      "Draft progression", "Reflection", "AI prompts used", "Annotated AI outputs", "Oral explanation / viva",
+      "Consultation notes", "Calculation workings", "Code annotations", "Design rationale", "Peer discussion evidence",
+      "Version history", "In-class activity evidence"
+    ];
+
+    var reasonList = [
+      "prioritise independent mastery", "strengthen critical thinking", "support idea development", "develop AI literacy",
+      "simulate workplace practice", "strengthen judgement and critique", "encourage creativity and innovation", "develop responsible AI use"
+    ];
+
+    var latestSuggestion = "";
+    var STORAGE_KEY = "assessment_redesign_canvas_v1";
+
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function makeChecks(containerId, list, name) {
+      var box = document.getElementById(containerId);
+      var html = "";
+      for (var i = 0; i < list.length; i += 1) {
+        html += '<label class="check-item"><input type="checkbox" name="' + escapeHtml(name) + '" value="' + escapeHtml(list[i]) + '"> <span>' + escapeHtml(list[i]) + '</span></label>';
+      }
+      box.innerHTML = html;
+    }
+
+    function val(id) {
+      var element = document.getElementById(id);
+      return element ? element.value.trim() : "";
+    }
+
+    function checked(name) {
+      var items = document.querySelectorAll('input[name="' + name + '"]:checked');
+      var values = [];
+      for (var i = 0; i < items.length; i += 1) values.push(items[i].value);
+      return values;
+    }
+
+    function radio(name) {
+      var item = document.querySelector('input[name="' + name + '"]:checked');
+      return item ? item.value : "";
+    }
+
+    function bullet(items) {
+      if (!items.length) return "- Not yet selected";
+      return items.map(function (x) { return "- " + x; }).join("\n");
+    }
+
+    function addScore(scores, level, points, reason, reasonsLog) {
+      scores[level] += points;
+      if (points > 0) reasonsLog.push(level + ": " + reason);
+    }
+
+    function calculateSuggestion() {
+      var scores = { RED: 0, AMBER: 0, GREEN: 0 };
+      var reasonsLog = [];
+      var caps = checked("capability");
+      var why = checked("reason");
+      var type = val("type");
+      var policy = val("policy").toLowerCase();
+      var riskLevels = [val("riskLevel1"), val("riskLevel2"), val("riskLevel3")];
+      var highRisks = riskLevels.filter(function (x) { return x === "High"; }).length;
+      var mediumRisks = riskLevels.filter(function (x) { return x === "Medium"; }).length;
+
+      if (type === "Practical") addScore(scores, "RED", 2, "practical demonstration may require direct observation of independent mastery", reasonsLog);
+      if (type === "Coding") addScore(scores, "GREEN", 2, "coding tasks can allow AI suggestions if students explain, debug, and optimise decisions", reasonsLog);
+      if (["Essay", "Report", "Case Study", "Presentation"].indexOf(type) >= 0) addScore(scores, "AMBER", 2, "this assessment type can use AI to challenge, structure, or refine thinking", reasonsLog);
+
+      if (policy.indexOf("prohibit") >= 0 || policy.indexOf("no ai") >= 0) addScore(scores, "RED", 3, "current policy appears to prohibit AI", reasonsLog);
+      if (policy.indexOf("allow") >= 0 || policy.indexOf("declaration") >= 0 || policy.indexOf("appendix") >= 0) addScore(scores, "AMBER", 1, "current policy appears to allow AI with documentation", reasonsLog);
+
+      if (highRisks >= 2) addScore(scores, "RED", 3, "multiple high shortcut risks suggest a need to protect independent thinking", reasonsLog);
+      else if (highRisks === 1) addScore(scores, "AMBER", 2, "one high shortcut risk suggests AI use should be bounded and evidenced", reasonsLog);
+      if (mediumRisks >= 2) addScore(scores, "AMBER", 1, "medium risks suggest structured AI use with verification", reasonsLog);
+
+      var redCaps = ["Knowledge recall", "Technical accuracy"];
+      var amberCaps = ["Critical analysis", "Reflection", "Evidence evaluation", "Argument development", "Research skills", "Ethical reasoning"];
+      var greenCaps = ["Problem-solving", "Creativity / innovation", "Communication", "Professional judgement", "Data interpretation", "Computational thinking", "Collaboration"];
+
+      caps.forEach(function (cap) {
+        if (redCaps.indexOf(cap) >= 0) addScore(scores, "RED", 1, cap + " may need visible independent mastery", reasonsLog);
+        if (amberCaps.indexOf(cap) >= 0) addScore(scores, "AMBER", 1, cap + " benefits from AI challenge and human verification", reasonsLog);
+        if (greenCaps.indexOf(cap) >= 0) addScore(scores, "GREEN", 1, cap + " can support authentic human-AI collaboration", reasonsLog);
+      });
+
+      why.forEach(function (item) {
+        if (item.indexOf("independent mastery") >= 0) addScore(scores, "RED", 3, "you selected independent mastery as a priority", reasonsLog);
+        if (item.indexOf("critical thinking") >= 0 || item.indexOf("idea development") >= 0 || item.indexOf("judgement") >= 0) addScore(scores, "AMBER", 2, "you selected: " + item, reasonsLog);
+        if (item.indexOf("AI literacy") >= 0 || item.indexOf("workplace") >= 0 || item.indexOf("creativity") >= 0 || item.indexOf("responsible AI") >= 0) addScore(scores, "GREEN", 2, "you selected: " + item, reasonsLog);
+      });
+
+      if (val("humanThinking").length > 20) addScore(scores, "AMBER", 1, "human thinking has been clearly specified, so AI can be allowed with evidence", reasonsLog);
+
+      var suggested = "AMBER";
+      if (scores.RED >= scores.AMBER && scores.RED >= scores.GREEN) suggested = "RED";
+      if (scores.GREEN > scores.AMBER && scores.GREEN > scores.RED) suggested = "GREEN";
+      if (scores.AMBER >= scores.RED && scores.AMBER >= scores.GREEN) suggested = "AMBER";
+
+      return { suggested: suggested, scores: scores, reasonsLog: reasonsLog };
+    }
+
+    function suggestTrafficLevel() {
+      var result = calculateSuggestion();
+      latestSuggestion = result.suggested;
+
+      var badge = document.getElementById("suggestedLevel");
+      badge.textContent = result.suggested;
+      badge.className = "suggested-level " + result.suggested.toLowerCase() + "-badge";
+
+      var explanation = {
+        RED: "Suggested when independent mastery is central, AI shortcut risk is high, or the current policy prohibits AI.",
+        AMBER: "Suggested when AI can support thinking, but students must still analyse, critique, verify, and justify their decisions.",
+        GREEN: "Suggested when the task should intentionally develop AI literacy, workplace practice, creative production, or human-AI collaboration."
+      };
+
+      document.getElementById("suggestedReason").textContent = explanation[result.suggested];
+
+      var maxScore = Math.max(result.scores.RED, result.scores.AMBER, result.scores.GREEN, 1);
+      var levels = ["RED", "AMBER", "GREEN"];
+      var html = "";
+      for (var i = 0; i < levels.length; i += 1) {
+        var level = levels[i];
+        var width = Math.round((result.scores[level] / maxScore) * 100);
+        html += '<div class="score-row"><strong>' + level + '</strong><div class="score-bar"><div class="score-fill" style="width:' + width + '%"></div></div><span>' + result.scores[level] + '</span></div>';
+      }
+      var signals = result.reasonsLog.slice(0, 8).map(escapeHtml).join("<br>") || "Complete more fields for a stronger suggestion.";
+      html += '<p class="hint"><strong>Main signals used:</strong><br>' + signals + '</p>';
+      document.getElementById("scoreBreakdown").innerHTML = html;
+    }
+
+    function applySuggestedLevel() {
+      if (!latestSuggestion) suggestTrafficLevel();
+      if (!latestSuggestion) return;
+      var option = document.querySelector('input[name="traffic"][value="' + latestSuggestion + '"]');
+      if (option) option.checked = true;
+    }
+
+    function getProtocolSummary() {
+      var selected = val("protocolSelect");
+      if (selected === "collectThinkConsult") {
+        return "Protocol 1: Collect - Think - Consult
+" +
+          "COLLECT: " + (val("p1_collect") || "Not stated") + "
+" +
+          "THINK: " + (val("p1_think") || "Not stated") + "
+" +
+          "CONSULT: " + (val("p1_consult") || "Not stated") + "
+" +
+          "VERIFY: " + (val("p1_verify") || "Not stated");
+      }
+      if (selected === "secondCollaborator") {
+        return "Protocol 2: AI as the Second Collaborator
+" +
+          "HUMAN COLLABORATION FIRST: " + (val("p2_human") || "Not stated") + "
+" +
+          "AI AS ADDITIONAL VIEW: " + (val("p2_ai") || "Not stated") + "
+" +
+          "GROUP EVALUATION: " + (val("p2_evaluate") || "Not stated") + "
+" +
+          "REVISION + CONTRIBUTION TRACE: " + (val("p2_trace") || "Not stated");
+      }
+      if (selected === "counterChallenge") {
+        return "Protocol 3: AI Counter-Challenge
+" +
+          "INITIAL CLAIM: " + (val("p3_claim") || "Not stated") + "
+" +
+          "AI COUNTER-CHALLENGE: " + (val("p3_counter") || "Not stated") + "
+" +
+          "DEFEND OR REFINE: " + (val("p3_defend") || "Not stated") + "
+" +
+          "VERIFY CLAIMS: " + (val("p3_verify") || "Not stated");
+      }
+      return "No Think First protocol selected.";
+    }
+
+    function showProtocolFields() {
+      var selected = val("protocolSelect");
+      var panels = ["collectThinkConsult", "secondCollaborator", "counterChallenge"];
+      for (var i = 0; i < panels.length; i += 1) {
+        var panel = document.getElementById("panel_" + panels[i]);
+        if (panel) panel.className = panels[i] === selected ? "protocol-panel active" : "protocol-panel";
+      }
+
+      var help = document.getElementById("protocolHelp");
+      if (!help) return;
+      if (selected === "collectThinkConsult") help.textContent = "Best for evidence-based analysis, comparison, interpretation, and verification.";
+      else if (selected === "secondCollaborator") help.textContent = "Best for collaborative, creative, design, or problem-solving tasks where AI adds a third perspective.";
+      else if (selected === "counterChallenge") help.textContent = "Best for essays, hypotheses, case arguments, interpretations, or solutions that need challenge and defence.";
+      else help.textContent = "Choose one protocol to see the matching redesign fields.";
+    }
+
+    function generateSummary() {
+      if (!latestSuggestion) suggestTrafficLevel();
+      var suggestedTraffic = latestSuggestion || "Not generated";
+      var traffic = radio("traffic") || "Not selected";
+      var summary = "ASSESSMENT REDESIGN SUMMARY\n\n" +
+        "1. Snapshot\n" +
+        "Module / Subject: " + (val("module") || "Not stated") + "\n" +
+        "Assessment Title: " + (val("title") || "Not stated") + "\n" +
+        "Assessment Type: " + (val("type") || "Not stated") + "\n" +
+        "Individual or Group: " + (val("mode") || "Not stated") + "\n" +
+        "Weightage: " + (val("weightage") || "Not stated") + "\n" +
+        "Current AI Policy: " + (val("policy") || "Not stated") + "\n\n" +
+        "2. Core Learning Being Assessed\n" + bullet(checked("capability")) + "\n\n" +
+        "3. AI Shortcut Risks\n" +
+        "- " + (val("risk1") || "Risk 1 not stated") + " [" + (val("riskLevel1") || "No level") + "]\n" +
+        "- " + (val("risk2") || "Risk 2 not stated") + " [" + (val("riskLevel2") || "No level") + "]\n" +
+        "- " + (val("risk3") || "Risk 3 not stated") + " [" + (val("riskLevel3") || "No level") + "]\n\n" +
+        "4. Human Thinking That Must Remain Visible\n" + (val("humanThinking") || "Not stated") + "\n\n" +
+        "5. Suggested and Chosen AI Traffic Light Level\n" +
+        "Suggested: " + suggestedTraffic + "\n" +
+        "Chosen: " + traffic + "\n\n" +
+        "6. Rationale\n" + bullet(checked("reason")) + "\n\n" +
+        "7. Redesigned Workflow\n" +
+        "Before AI:\n- " + (val("before1") || "Not stated") + "\n- " + (val("before2") || "Not stated") + "\n\n" +
+        "With AI:\n- " + (val("with1") || "Not stated") + "\n- " + (val("with2") || "Not stated") + "\n\n" +
+        "After AI:\n- " + (val("after1") || "Not stated") + "\n- " + (val("after2") || "Not stated") + "\n\n" +
+        "8. Think First Protocol Integration
+" + getProtocolSummary() + "
+
+" +
+        "9. Evidence of Thinking\n" + bullet(checked("evidence")) + "\n\n" +
+        "10. Assessment Criteria and Evidence\n" +
+        "- " + (val("criteria1") || "Criterion 1 not stated") + ": " + (val("show1") || "Evidence n
