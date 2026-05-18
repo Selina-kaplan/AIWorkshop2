@@ -32,7 +32,31 @@
       padding: 28px 20px;
     }
 
-    .wrap { max-width: 1100px; margin: 0 auto; }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .kaplan-mark {
+      flex: 0 0 auto;
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      border-radius: 999px;
+      padding: 8px 18px 9px;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: white;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
     h1, h2, h3 { margin: 0 0 10px; }
     h1 { font-size: 30px; }
     h2 { font-size: 22px; color: var(--blue); }
@@ -85,6 +109,8 @@
       border: 1px solid var(--line);
     }
 
+    button:hover { filter: brightness(0.96); }
+
     .page {
       background: white;
       border: 1px solid var(--line);
@@ -136,7 +162,10 @@
       background: white;
     }
 
-    textarea { min-height: 82px; resize: vertical; }
+    textarea {
+      min-height: 82px;
+      resize: vertical;
+    }
 
     .checks {
       display: grid;
@@ -188,9 +217,34 @@
     }
 
     td textarea { min-height: 70px; }
-    .hint { color: var(--muted); font-size: 13px; margin: 4px 0 10px; }
-    .small-note { font-size: 12px; color: var(--muted); }
-    .save-status { font-size: 12px; color: #166534; font-weight: 700; }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 4px 0 10px;
+    }
+
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .example {
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fbfdff;
+      padding: 14px;
+    }
+
+    .principle {
+      margin-top: 16px;
+      padding: 14px;
+      border-left: 6px solid var(--blue);
+      background: #eef2ff;
+      border-radius: 12px;
+      font-weight: 700;
+    }
 
     .reference-card, .suggestion-box, .protocol-panel {
       border: 1px solid var(--line);
@@ -218,21 +272,30 @@
       margin-top: 12px;
     }
 
-    .protocol-panel { display: none; }
-    .protocol-panel.active { display: block; }
+    .protocol-panel {
+      display: none;
+    }
 
-    .protocol-preview {
+    .protocol-panel.active {
+      display: block;
+    }
+
+    .protocol-choice {
+      margin-top: 10px;
+    }
+
+    .protocol-cards {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 12px;
+      gap: 10px;
+      margin: 12px 0;
     }
 
     .protocol-card {
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: 12px;
-      background: #f8fafc;
+      background: #ffffff;
       font-size: 13px;
     }
 
@@ -266,28 +329,10 @@
       overflow: hidden;
     }
 
-    .score-fill { height: 100%; background: var(--blue); }
-
-    .examples {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .example {
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: #fbfdff;
-      padding: 14px;
-    }
-
-    .principle {
-      margin-top: 16px;
-      padding: 14px;
-      border-left: 6px solid var(--blue);
-      background: #eef2ff;
-      border-radius: 12px;
-      font-weight: 700;
+    .score-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--blue);
     }
 
     .summary-box {
@@ -302,25 +347,38 @@
       overflow-x: auto;
     }
 
+    .small-note { font-size: 12px; color: var(--muted); }
+    .save-status { font-size: 12px; color: #166534; font-weight: 700; }
+
     @media (max-width: 820px) {
-      .grid-2, .checks, .radio-grid, .examples, .protocol-preview { grid-template-columns: 1fr; }
+      .grid-2, .checks, .radio-grid, .examples, .protocol-cards { grid-template-columns: 1fr; }
       .toolbar { position: static; }
+      .header-row { display: block; }
+      .kaplan-mark { display: inline-block; margin-top: 16px; }
     }
 
     @media print {
       body { background: white; }
       header, .toolbar, .summary-section { display: none; }
       main { margin: 0; padding: 0; max-width: none; }
-      .page { box-shadow: none; border: 1px solid #999; border-radius: 0; page-break-after: always; }
+      .page {
+        box-shadow: none;
+        border: 1px solid #999;
+        border-radius: 0;
+        page-break-after: always;
+      }
       input, select, textarea { border: 1px solid #999; }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="wrap">
-      <h1>Assessment Redesign Canvas</h1>
-      <p class="subtitle">AI Traffic Light + Think First Protocol. Redesign one assessment while preserving authentic student thinking, judgement, and learning.</p>
+    <div class="wrap header-row">
+      <div>
+        <h1>Assessment Redesign Canvas</h1>
+        <p class="subtitle">AI Traffic Light + Think First Protocol. Use this canvas to redesign one assessment for meaningful AI integration while preserving authentic student thinking, judgement, and learning.</p>
+      </div>
+      <div class="kaplan-mark">KAPLAN</div>
     </div>
   </header>
 
@@ -330,15 +388,15 @@
         <strong>Lecturer tool</strong><br>
         <span class="small-note">Complete the fields, generate a suggestion, then print or save as PDF.</span>
       </div>
-      <div id="saveStatus" class="save-status">Autosave enabled</div>
+      <div><div id="saveStatus" class="save-status">Autosave enabled</div></div>
       <div class="btns">
-        <button type="button" onclick="generateSummary()">Generate Summary</button>
-        <button type="button" class="secondary" onclick="window.print()">Print / Save PDF</button>
-        <button type="button" class="secondary" onclick="resetCanvas()">Reset</button>
+        <button id="generateSummaryBtn" type="button">Generate Summary</button>
+        <button id="printBtn" type="button" class="secondary">Print / Save PDF</button>
+        <button id="resetBtn" type="button" class="secondary">Reset</button>
       </div>
     </div>
 
-    <section class="page">
+    <section id="page1" class="page">
       <span class="page-label">Page 1</span>
       <h2>Analyse + Decide</h2>
 
@@ -346,8 +404,8 @@
         <details open>
           <summary>AI Assessment Traffic Light System reference</summary>
           <p class="hint">Use this reference while completing the canvas. Green means AI is required, Amber means AI is permitted and declared, and Red means AI is not permitted.</p>
-          <img class="traffic-reference-image" src="Taffic%20Light%20System.png" alt="AI Assessment Traffic Light System reference showing Green, Amber, and Red levels.">
-          <p class="small-note">Hosting note: keep this HTML file and the image file named <strong>Taffic Light System.png</strong> in the same folder.</p>
+          <img class="traffic-reference-image" src="Taffic%20Light%20System.png" alt="AI Assessment Traffic Light System reference showing Green, Amber, and Red levels, student expectations, lecturer expectations, evidence required, and implementation steps.">
+          <p class="small-note">Hosting note: keep this HTML file and the image file named <strong>Taffic Light System.png</strong> in the same folder. For Netlify or Vercel, upload the image into the same public/root folder as the HTML page.</p>
         </details>
       </div>
 
@@ -370,7 +428,7 @@
       </div>
 
       <div class="section">
-        <h3>3. Where Will AI Most Likely Be Used To Shortcut Learning?</h3>
+        <h3>3. Where Is AI Most Likely To Shortcut Learning?</h3>
         <table>
           <thead><tr><th>Assessment Component</th><th>Risk Level</th></tr></thead>
           <tbody>
@@ -389,107 +447,16 @@
 
       <div class="section">
         <h3>5. Choose the AI Traffic Light Level</h3>
-        <p class="hint">Select one. You may use the suggested level as a starting point.</p>
-        <div class="suggestion-box">
-          <h3>Suggested Traffic Light Level</h3>
-          <p class="hint">This suggestion is based on assessment type, learning outcomes, AI shortcut risks, and rationale.</p>
-          <button type="button" onclick="suggestTrafficLevel()">Suggest Level</button>
-          <button type="button" class="secondary" onclick="applySuggestedLevel()">Apply Suggested Level</button>
-          <div id="suggestedLevel" class="suggested-level">Not generated yet</div>
-          <div id="suggestedReason" class="hint"></div>
-          <div id="scoreBreakdown"></div>
-        </div>
-        <div class="radio-grid">
-          <label class="radio-card red"><input type="radio" name="traffic" value="RED"><span><strong>RED</strong> Independent mastery. Students complete work without AI support.</span></label>
-          <label class="radio-card amber"><input type="radio" name="traffic" value="AMBER"><span><strong>AMBER</strong> AI-supported thinking. Students use AI to expand, challenge, or refine ideas.</span></label>
-          <label class="radio-card green"><input type="radio" name="traffic" value="GREEN"><span><strong>GREEN</strong> Human + AI collaboration. Students strategically use AI to solve problems and create outputs.</span></label>
-        </div>
-      </div>
-
-      <div class="section">
-        <h3>6. Why This Level?</h3>
-        <p class="hint">This assessment should:</p>
-        <div class="checks" id="reasons"></div>
-      </div>
-    </section>
-
-    <section class="page">
-      <span class="page-label">Page 2</span>
-      <h2>Redesign + Evidence</h2>
-
-      <div class="section">
-        <h3>1. Redesign the Assessment Workflow</h3>
-        <table>
-          <thead><tr><th>Before AI<br><span class="small-note">What students must do independently</span></th><th>With AI<br><span class="small-note">How AI may be used</span></th><th>After AI<br><span class="small-note">What students must verify, defend, refine, or justify</span></th></tr></thead>
-          <tbody>
-            <tr><td><textarea id="before1"></textarea></td><td><textarea id="with1"></textarea></td><td><textarea id="after1"></textarea></td></tr>
-            <tr><td><textarea id="before2"></textarea></td><td><textarea id="with2"></textarea></td><td><textarea id="after2"></textarea></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="section">
-        <h3>2. Think First Protocol Selection</h3>
-        <p class="hint">Choose one protocol. The matching fields will appear immediately below.</p>
-
-        <label for="protocolSelect">Chosen Think First Protocol</label>
-        <select id="protocolSelect">
-          <option value="">Select a protocol</option>
-          <option value="collectThinkConsult">Protocol 1: Collect - Think - Consult</option>
-          <option value="secondCollaborator">Protocol 2: AI as the Second Collaborator</option>
-          <option value="counterChallenge">Protocol 3: AI Counter-Challenge</option>
-        </select>
-
-        <div class="protocol-preview">
-          <div class="protocol-card"><strong>Protocol 1</strong><br>Best for evidence gathering, analysis, comparison, and verification.</div>
-          <div class="protocol-card"><strong>Protocol 2</strong><br>Best for group work, creative reasoning, and using AI as an extra perspective.</div>
-          <div class="protocol-card"><strong>Protocol 3</strong><br>Best for claims, hypotheses, essays, and counterarguments.</div>
-        </div>
-
-        <div id="protocolHelp" class="hint">Choose one protocol to see the matching redesign fields.</div>
-
-        <div id="panel_collectThinkConsult" class="protocol-panel">
-          <h3>Protocol 1: Collect - Think - Consult</h3>
-          <p class="hint">Students collect evidence first, analyse independently, consult AI, then verify AI suggestions against evidence.</p>
-          <table>
-            <tbody>
-              <tr><th>COLLECT</th><td><textarea id="p1_collect" placeholder="What evidence, examples, data, sources, or observations must students collect without AI?"></textarea></td></tr>
-              <tr><th>THINK</th><td><textarea id="p1_think" placeholder="How will students sort, compare, infer patterns, or form their own conclusions?"></textarea></td></tr>
-              <tr><th>CONSULT</th><td><textarea id="p1_consult" placeholder="How may AI expand, challenge, or question their initial findings?"></textarea></td></tr>
-              <tr><th>VERIFY</th><td><textarea id="p1_verify" placeholder="How will students check AI suggestions and decide what to keep or reject?"></textarea></td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div id="panel_secondCollaborator" class="protocol-panel">
-          <h3>Protocol 2: AI as the Second Collaborator</h3>
-            <tr><td><textarea id="risk1"></textarea></td><td><select id="riskLevel1"><option></option><option>High</option><option>Medium</option><option>Low</option></select></td></tr>
-            <tr><td><textarea id="risk2"></textarea></td><td><select id="riskLevel2"><option></option><option>High</option><option>Medium</option><option>Low</option></select></td></tr>
-            <tr><td><textarea id="risk3"></textarea></td><td><select id="riskLevel3"><option></option><option>High</option><option>Medium</option><option>Low</option></select></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="section">
-        <h3>4. What Human Thinking Must Remain Visible?</h3>
-        <label for="humanThinking">Students must still demonstrate</label>
-        <textarea id="humanThinking" placeholder="Describe the thinking, judgement, decision-making, critique, interpretation, or professional reasoning that must be visible."></textarea>
-      </div>
-
-      <div class="section">
-        <h3>5. Choose the AI Traffic Light Level</h3>
         <p class="hint">Select one. You may also use the suggested level below as a starting point.</p>
-
         <div class="suggestion-box">
           <h3>Suggested Traffic Light Level</h3>
           <p class="hint">This suggestion is based on assessment type, core learning outcomes, AI shortcut risks, and rationale. It is a guide only; lecturer judgement remains final.</p>
-          <button type="button" onclick="suggestTrafficLevel()">Suggest Level</button>
-          <button type="button" class="secondary" onclick="applySuggestedLevel()">Apply Suggested Level</button>
+          <button id="suggestLevelBtn" type="button">Suggest Level</button>
+          <button id="applySuggestedBtn" type="button" class="secondary">Apply Suggested Level</button>
           <div id="suggestedLevel" class="suggested-level">Not generated yet</div>
           <div id="suggestedReason" class="hint"></div>
           <div id="scoreBreakdown"></div>
         </div>
-
         <div class="radio-grid">
           <label class="radio-card red"><input type="radio" name="traffic" value="RED"><span><strong>RED</strong> Independent mastery. Students complete work without AI support.</span></label>
           <label class="radio-card amber"><input type="radio" name="traffic" value="AMBER"><span><strong>AMBER</strong> AI-supported thinking. Students use AI to expand, challenge, or refine ideas.</span></label>
@@ -504,7 +471,7 @@
       </div>
     </section>
 
-    <section class="page">
+    <section id="page2" class="page">
       <span class="page-label">Page 2</span>
       <h2>Redesign + Evidence</h2>
 
@@ -523,14 +490,19 @@
         <h3>2. Think First Protocol Selection</h3>
         <p class="hint">Select the protocol that best fits the redesigned assessment. The relevant fields will appear below.</p>
 
+        <div class="protocol-cards">
+          <div class="protocol-card"><strong>Protocol 1</strong><br>Collect evidence first. Analyse independently. Consult AI only after initial thinking.</div>
+          <div class="protocol-card"><strong>Protocol 2</strong><br>Students collaborate first. AI adds a third perspective. Students evaluate all contributions.</div>
+          <div class="protocol-card"><strong>Protocol 3</strong><br>Students form a claim first. AI challenges it. Students defend, refine, and verify.</div>
+        </div>
+
         <label for="protocolSelect">Chosen Think First Protocol</label>
-        <select id="protocolSelect" class="protocol-choice" onchange="showProtocolFields(); saveToLocalStorage();">
-          <option value=""></option>
+        <select id="protocolSelect" class="protocol-choice">
+          <option value="">Select a protocol...</option>
           <option value="collectThinkConsult">Protocol 1: Collect - Think - Consult</option>
           <option value="secondCollaborator">Protocol 2: AI as the Second Collaborator</option>
           <option value="counterChallenge">Protocol 3: AI Counter-Challenge</option>
         </select>
-
         <div id="protocolHelp" class="hint">Choose one protocol to see the matching redesign fields.</div>
 
         <div id="panel_collectThinkConsult" class="protocol-panel">
@@ -651,35 +623,42 @@
     ];
 
     var latestSuggestion = "";
-    var STORAGE_KEY = "assessment_redesign_canvas_v1";
+    var STORAGE_KEY = "assessment_redesign_canvas_v4";
+    var NEWLINE = String.fromCharCode(10);
 
     function escapeHtml(text) {
       return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/\"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .split("&").join("&amp;")
+        .split("<").join("&lt;")
+        .split(">").join("&gt;")
+        .split('"').join("&quot;")
+        .split("'").join("&#039;");
+    }
+
+    function getElement(id) {
+      return document.getElementById(id);
     }
 
     function makeChecks(containerId, list, name) {
-      var box = document.getElementById(containerId);
+      var box = getElement(containerId);
       var html = "";
-      for (var i = 0; i < list.length; i += 1) {
+      var i;
+      for (i = 0; i < list.length; i += 1) {
         html += '<label class="check-item"><input type="checkbox" name="' + escapeHtml(name) + '" value="' + escapeHtml(list[i]) + '"> <span>' + escapeHtml(list[i]) + '</span></label>';
       }
-      box.innerHTML = html;
+      if (box) box.innerHTML = html;
     }
 
     function val(id) {
-      var element = document.getElementById(id);
+      var element = getElement(id);
       return element ? element.value.trim() : "";
     }
 
     function checked(name) {
       var items = document.querySelectorAll('input[name="' + name + '"]:checked');
       var values = [];
-      for (var i = 0; i < items.length; i += 1) values.push(items[i].value);
+      var i;
+      for (i = 0; i < items.length; i += 1) values.push(items[i].value);
       return values;
     }
 
@@ -690,7 +669,7 @@
 
     function bullet(items) {
       if (!items.length) return "- Not yet selected";
-      return items.map(function (x) { return "- " + x; }).join("\n");
+      return items.map(function (x) { return "- " + x; }).join(NEWLINE);
     }
 
     function addScore(scores, level, points, reason, reasonsLog) {
@@ -708,21 +687,19 @@
       var riskLevels = [val("riskLevel1"), val("riskLevel2"), val("riskLevel3")];
       var highRisks = riskLevels.filter(function (x) { return x === "High"; }).length;
       var mediumRisks = riskLevels.filter(function (x) { return x === "Medium"; }).length;
+      var redCaps = ["Knowledge recall", "Technical accuracy"];
+      var amberCaps = ["Critical analysis", "Reflection", "Evidence evaluation", "Argument development", "Research skills", "Ethical reasoning"];
+      var greenCaps = ["Problem-solving", "Creativity / innovation", "Communication", "Professional judgement", "Data interpretation", "Computational thinking", "Collaboration"];
+      var suggested;
 
       if (type === "Practical") addScore(scores, "RED", 2, "practical demonstration may require direct observation of independent mastery", reasonsLog);
       if (type === "Coding") addScore(scores, "GREEN", 2, "coding tasks can allow AI suggestions if students explain, debug, and optimise decisions", reasonsLog);
       if (["Essay", "Report", "Case Study", "Presentation"].indexOf(type) >= 0) addScore(scores, "AMBER", 2, "this assessment type can use AI to challenge, structure, or refine thinking", reasonsLog);
-
       if (policy.indexOf("prohibit") >= 0 || policy.indexOf("no ai") >= 0) addScore(scores, "RED", 3, "current policy appears to prohibit AI", reasonsLog);
       if (policy.indexOf("allow") >= 0 || policy.indexOf("declaration") >= 0 || policy.indexOf("appendix") >= 0) addScore(scores, "AMBER", 1, "current policy appears to allow AI with documentation", reasonsLog);
-
       if (highRisks >= 2) addScore(scores, "RED", 3, "multiple high shortcut risks suggest a need to protect independent thinking", reasonsLog);
       else if (highRisks === 1) addScore(scores, "AMBER", 2, "one high shortcut risk suggests AI use should be bounded and evidenced", reasonsLog);
       if (mediumRisks >= 2) addScore(scores, "AMBER", 1, "medium risks suggest structured AI use with verification", reasonsLog);
-
-      var redCaps = ["Knowledge recall", "Technical accuracy"];
-      var amberCaps = ["Critical analysis", "Reflection", "Evidence evaluation", "Argument development", "Research skills", "Ethical reasoning"];
-      var greenCaps = ["Problem-solving", "Creativity / innovation", "Communication", "Professional judgement", "Data interpretation", "Computational thinking", "Collaboration"];
 
       caps.forEach(function (cap) {
         if (redCaps.indexOf(cap) >= 0) addScore(scores, "RED", 1, cap + " may need visible independent mastery", reasonsLog);
@@ -738,41 +715,42 @@
 
       if (val("humanThinking").length > 20) addScore(scores, "AMBER", 1, "human thinking has been clearly specified, so AI can be allowed with evidence", reasonsLog);
 
-      var suggested = "AMBER";
+      suggested = "AMBER";
       if (scores.RED >= scores.AMBER && scores.RED >= scores.GREEN) suggested = "RED";
       if (scores.GREEN > scores.AMBER && scores.GREEN > scores.RED) suggested = "GREEN";
       if (scores.AMBER >= scores.RED && scores.AMBER >= scores.GREEN) suggested = "AMBER";
-
       return { suggested: suggested, scores: scores, reasonsLog: reasonsLog };
     }
 
     function suggestTrafficLevel() {
       var result = calculateSuggestion();
-      latestSuggestion = result.suggested;
-
-      var badge = document.getElementById("suggestedLevel");
-      badge.textContent = result.suggested;
-      badge.className = "suggested-level " + result.suggested.toLowerCase() + "-badge";
-
+      var badge = getElement("suggestedLevel");
       var explanation = {
         RED: "Suggested when independent mastery is central, AI shortcut risk is high, or the current policy prohibits AI.",
         AMBER: "Suggested when AI can support thinking, but students must still analyse, critique, verify, and justify their decisions.",
         GREEN: "Suggested when the task should intentionally develop AI literacy, workplace practice, creative production, or human-AI collaboration."
       };
-
-      document.getElementById("suggestedReason").textContent = explanation[result.suggested];
-
+      var reasonBox = getElement("suggestedReason");
       var maxScore = Math.max(result.scores.RED, result.scores.AMBER, result.scores.GREEN, 1);
       var levels = ["RED", "AMBER", "GREEN"];
       var html = "";
-      for (var i = 0; i < levels.length; i += 1) {
+      var i;
+
+      latestSuggestion = result.suggested;
+      if (badge) {
+        badge.textContent = result.suggested;
+        badge.className = "suggested-level " + result.suggested.toLowerCase() + "-badge";
+      }
+      if (reasonBox) reasonBox.textContent = explanation[result.suggested];
+
+      for (i = 0; i < levels.length; i += 1) {
         var level = levels[i];
         var width = Math.round((result.scores[level] / maxScore) * 100);
         html += '<div class="score-row"><strong>' + level + '</strong><div class="score-bar"><div class="score-fill" style="width:' + width + '%"></div></div><span>' + result.scores[level] + '</span></div>';
       }
-      var signals = result.reasonsLog.slice(0, 8).map(escapeHtml).join("<br>") || "Complete more fields for a stronger suggestion.";
-      html += '<p class="hint"><strong>Main signals used:</strong><br>' + signals + '</p>';
-      document.getElementById("scoreBreakdown").innerHTML = html;
+      html += '<p class="hint"><strong>Main signals used:</strong><br>' + (result.reasonsLog.slice(0, 8).map(escapeHtml).join("<br>") || "Complete more fields for a stronger suggestion.") + '</p>';
+      if (getElement("scoreBreakdown")) getElement("scoreBreakdown").innerHTML = html;
+      saveToLocalStorage();
     }
 
     function applySuggestedLevel() {
@@ -780,42 +758,35 @@
       if (!latestSuggestion) return;
       var option = document.querySelector('input[name="traffic"][value="' + latestSuggestion + '"]');
       if (option) option.checked = true;
+      saveToLocalStorage();
     }
 
     function getProtocolSummary() {
       var selected = val("protocolSelect");
+      var lines = [];
       if (selected === "collectThinkConsult") {
-        return "Protocol 1: Collect - Think - Consult
-" +
-          "COLLECT: " + (val("p1_collect") || "Not stated") + "
-" +
-          "THINK: " + (val("p1_think") || "Not stated") + "
-" +
-          "CONSULT: " + (val("p1_consult") || "Not stated") + "
-" +
-          "VERIFY: " + (val("p1_verify") || "Not stated");
+        lines.push("Protocol 1: Collect - Think - Consult");
+        lines.push("COLLECT: " + (val("p1_collect") || "Not stated"));
+        lines.push("THINK: " + (val("p1_think") || "Not stated"));
+        lines.push("CONSULT: " + (val("p1_consult") || "Not stated"));
+        lines.push("VERIFY: " + (val("p1_verify") || "Not stated"));
+        return lines.join(NEWLINE);
       }
       if (selected === "secondCollaborator") {
-        return "Protocol 2: AI as the Second Collaborator
-" +
-          "HUMAN COLLABORATION FIRST: " + (val("p2_human") || "Not stated") + "
-" +
-          "AI AS ADDITIONAL VIEW: " + (val("p2_ai") || "Not stated") + "
-" +
-          "GROUP EVALUATION: " + (val("p2_evaluate") || "Not stated") + "
-" +
-          "REVISION + CONTRIBUTION TRACE: " + (val("p2_trace") || "Not stated");
+        lines.push("Protocol 2: AI as the Second Collaborator");
+        lines.push("HUMAN COLLABORATION FIRST: " + (val("p2_human") || "Not stated"));
+        lines.push("AI AS ADDITIONAL VIEW: " + (val("p2_ai") || "Not stated"));
+        lines.push("GROUP EVALUATION: " + (val("p2_evaluate") || "Not stated"));
+        lines.push("REVISION + CONTRIBUTION TRACE: " + (val("p2_trace") || "Not stated"));
+        return lines.join(NEWLINE);
       }
       if (selected === "counterChallenge") {
-        return "Protocol 3: AI Counter-Challenge
-" +
-          "INITIAL CLAIM: " + (val("p3_claim") || "Not stated") + "
-" +
-          "AI COUNTER-CHALLENGE: " + (val("p3_counter") || "Not stated") + "
-" +
-          "DEFEND OR REFINE: " + (val("p3_defend") || "Not stated") + "
-" +
-          "VERIFY CLAIMS: " + (val("p3_verify") || "Not stated");
+        lines.push("Protocol 3: AI Counter-Challenge");
+        lines.push("INITIAL CLAIM: " + (val("p3_claim") || "Not stated"));
+        lines.push("AI COUNTER-CHALLENGE: " + (val("p3_counter") || "Not stated"));
+        lines.push("DEFEND OR REFINE: " + (val("p3_defend") || "Not stated"));
+        lines.push("VERIFY CLAIMS: " + (val("p3_verify") || "Not stated"));
+        return lines.join(NEWLINE);
       }
       return "No Think First protocol selected.";
     }
@@ -823,12 +794,17 @@
     function showProtocolFields() {
       var selected = val("protocolSelect");
       var panels = ["collectThinkConsult", "secondCollaborator", "counterChallenge"];
-      for (var i = 0; i < panels.length; i += 1) {
-        var panel = document.getElementById("panel_" + panels[i]);
-        if (panel) panel.className = panels[i] === selected ? "protocol-panel active" : "protocol-panel";
+      var help = getElement("protocolHelp");
+      var i;
+
+      for (i = 0; i < panels.length; i += 1) {
+        var panel = getElement("panel_" + panels[i]);
+        if (panel) {
+          if (panels[i] === selected) panel.classList.add("active");
+          else panel.classList.remove("active");
+        }
       }
 
-      var help = document.getElementById("protocolHelp");
       if (!help) return;
       if (selected === "collectThinkConsult") help.textContent = "Best for evidence-based analysis, comparison, interpretation, and verification.";
       else if (selected === "secondCollaborator") help.textContent = "Best for collaborative, creative, design, or problem-solving tasks where AI adds a third perspective.";
@@ -838,34 +814,174 @@
 
     function generateSummary() {
       if (!latestSuggestion) suggestTrafficLevel();
-      var suggestedTraffic = latestSuggestion || "Not generated";
-      var traffic = radio("traffic") || "Not selected";
-      var summary = "ASSESSMENT REDESIGN SUMMARY\n\n" +
-        "1. Snapshot\n" +
-        "Module / Subject: " + (val("module") || "Not stated") + "\n" +
-        "Assessment Title: " + (val("title") || "Not stated") + "\n" +
-        "Assessment Type: " + (val("type") || "Not stated") + "\n" +
-        "Individual or Group: " + (val("mode") || "Not stated") + "\n" +
-        "Weightage: " + (val("weightage") || "Not stated") + "\n" +
-        "Current AI Policy: " + (val("policy") || "Not stated") + "\n\n" +
-        "2. Core Learning Being Assessed\n" + bullet(checked("capability")) + "\n\n" +
-        "3. AI Shortcut Risks\n" +
-        "- " + (val("risk1") || "Risk 1 not stated") + " [" + (val("riskLevel1") || "No level") + "]\n" +
-        "- " + (val("risk2") || "Risk 2 not stated") + " [" + (val("riskLevel2") || "No level") + "]\n" +
-        "- " + (val("risk3") || "Risk 3 not stated") + " [" + (val("riskLevel3") || "No level") + "]\n\n" +
-        "4. Human Thinking That Must Remain Visible\n" + (val("humanThinking") || "Not stated") + "\n\n" +
-        "5. Suggested and Chosen AI Traffic Light Level\n" +
-        "Suggested: " + suggestedTraffic + "\n" +
-        "Chosen: " + traffic + "\n\n" +
-        "6. Rationale\n" + bullet(checked("reason")) + "\n\n" +
-        "7. Redesigned Workflow\n" +
-        "Before AI:\n- " + (val("before1") || "Not stated") + "\n- " + (val("before2") || "Not stated") + "\n\n" +
-        "With AI:\n- " + (val("with1") || "Not stated") + "\n- " + (val("with2") || "Not stated") + "\n\n" +
-        "After AI:\n- " + (val("after1") || "Not stated") + "\n- " + (val("after2") || "Not stated") + "\n\n" +
-        "8. Think First Protocol Integration
-" + getProtocolSummary() + "
+      var lines = [];
+      lines.push("ASSESSMENT REDESIGN SUMMARY");
+      lines.push("");
+      lines.push("1. Snapshot");
+      lines.push("Module / Subject: " + (val("module") || "Not stated"));
+      lines.push("Assessment Title: " + (val("title") || "Not stated"));
+      lines.push("Assessment Type: " + (val("type") || "Not stated"));
+      lines.push("Individual or Group: " + (val("mode") || "Not stated"));
+      lines.push("Weightage: " + (val("weightage") || "Not stated"));
+      lines.push("Current AI Policy: " + (val("policy") || "Not stated"));
+      lines.push("");
+      lines.push("2. Core Learning Being Assessed");
+      lines.push(bullet(checked("capability")));
+      lines.push("");
+      lines.push("3. AI Shortcut Risks");
+      lines.push("- " + (val("risk1") || "Risk 1 not stated") + " [" + (val("riskLevel1") || "No level") + "]");
+      lines.push("- " + (val("risk2") || "Risk 2 not stated") + " [" + (val("riskLevel2") || "No level") + "]");
+      lines.push("- " + (val("risk3") || "Risk 3 not stated") + " [" + (val("riskLevel3") || "No level") + "]");
+      lines.push("");
+      lines.push("4. Human Thinking That Must Remain Visible");
+      lines.push(val("humanThinking") || "Not stated");
+      lines.push("");
+      lines.push("5. Suggested and Chosen AI Traffic Light Level");
+      lines.push("Suggested: " + (latestSuggestion || "Not generated"));
+      lines.push("Chosen: " + (radio("traffic") || "Not selected"));
+      lines.push("");
+      lines.push("6. Rationale");
+      lines.push(bullet(checked("reason")));
+      lines.push("");
+      lines.push("7. Redesigned Workflow");
+      lines.push("Before AI:");
+      lines.push("- " + (val("before1") || "Not stated"));
+      lines.push("- " + (val("before2") || "Not stated"));
+      lines.push("With AI:");
+      lines.push("- " + (val("with1") || "Not stated"));
+      lines.push("- " + (val("with2") || "Not stated"));
+      lines.push("After AI:");
+      lines.push("- " + (val("after1") || "Not stated"));
+      lines.push("- " + (val("after2") || "Not stated"));
+      lines.push("");
+      lines.push("8. Think First Protocol Integration");
+      lines.push(getProtocolSummary());
+      lines.push("");
+      lines.push("9. Evidence of Thinking");
+      lines.push(bullet(checked("evidence")));
+      lines.push("");
+      lines.push("10. Assessment Criteria and Evidence");
+      lines.push("- " + (val("criteria1") || "Criterion 1 not stated") + ": " + (val("show1") || "Evidence not stated"));
+      lines.push("- " + (val("criteria2") || "Criterion 2 not stated") + ": " + (val("show2") || "Evidence not stated"));
+      lines.push("- " + (val("criteria3") || "Criterion 3 not stated") + ": " + (val("show3") || "Evidence not stated"));
+      lines.push("");
+      lines.push("11. Practical Implementation");
+      lines.push("- Challenge: " + (val("challenge1") || "Not stated") + " | Solution: " + (val("solution1") || "Not stated"));
+      lines.push("- Challenge: " + (val("challenge2") || "Not stated") + " | Solution: " + (val("solution2") || "Not stated"));
+      lines.push("");
+      lines.push("12. Final Reflection");
+      lines.push(val("reflection") || "Not stated");
+      getElement("summary").textContent = lines.join(NEWLINE);
+      saveToLocalStorage();
+    }
 
-" +
-        "9. Evidence of Thinking\n" + bullet(checked("evidence")) + "\n\n" +
-        "10. Assessment Criteria and Evidence\n" +
-        "- " + (val("criteria1") || "Criterion 1 not stated") + ": " + (val("show1") || "Evidence n
+    function resetCanvas() {
+      if (!confirm("Clear all entries?")) return;
+      var textInputs = document.querySelectorAll("input[type='text'], textarea");
+      var selects = document.querySelectorAll("select");
+      var checks = document.querySelectorAll("input[type='checkbox'], input[type='radio']");
+      var i;
+      for (i = 0; i < textInputs.length; i += 1) textInputs[i].value = "";
+      for (i = 0; i < selects.length; i += 1) selects[i].selectedIndex = 0;
+      for (i = 0; i < checks.length; i += 1) checks[i].checked = false;
+      latestSuggestion = "";
+      getElement("suggestedLevel").textContent = "Not generated yet";
+      getElement("suggestedLevel").className = "suggested-level";
+      getElement("suggestedReason").textContent = "";
+      getElement("scoreBreakdown").innerHTML = "";
+      getElement("summary").textContent = "Click Generate Summary.";
+      showProtocolFields();
+      try { localStorage.removeItem(STORAGE_KEY); } catch (err) { console.error("LocalStorage clear failed", err); }
+    }
+
+    function saveToLocalStorage() {
+      try {
+        var data = {};
+        var textInputs = document.querySelectorAll("input[type='text'], textarea, select");
+        var checks = document.querySelectorAll("input[type='checkbox'], input[type='radio']");
+        var i;
+        var j;
+        for (i = 0; i < textInputs.length; i += 1) {
+          if (textInputs[i].id) data[textInputs[i].id] = textInputs[i].value;
+        }
+        for (j = 0; j < checks.length; j += 1) {
+          data[checks[j].name + "__" + checks[j].value] = checks[j].checked;
+        }
+        data.latestSuggestion = latestSuggestion;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        var status = getElement("saveStatus");
+        if (status) {
+          status.textContent = "Saved locally on this computer";
+          setTimeout(function () { status.textContent = "Autosave enabled"; }, 2000);
+        }
+      } catch (err) {
+        console.error("LocalStorage save failed", err);
+      }
+    }
+
+    function loadFromLocalStorage() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        var data;
+        var checks;
+        var i;
+        if (!raw) return;
+        data = JSON.parse(raw);
+        Object.keys(data).forEach(function (key) {
+          if (key === "latestSuggestion") return;
+          var el = getElement(key);
+          if (el) el.value = data[key];
+        });
+        checks = document.querySelectorAll("input[type='checkbox'], input[type='radio']");
+        for (i = 0; i < checks.length; i += 1) {
+          var checkKey = checks[i].name + "__" + checks[i].value;
+          if (typeof data[checkKey] !== "undefined") checks[i].checked = data[checkKey];
+        }
+        latestSuggestion = data.latestSuggestion || "";
+        if (latestSuggestion) suggestTrafficLevel();
+        showProtocolFields();
+        if (getElement("saveStatus")) getElement("saveStatus").textContent = "Previous session restored";
+      } catch (err) {
+        console.error("LocalStorage load failed", err);
+      }
+    }
+
+    function attachEvents() {
+      var elements = document.querySelectorAll("input, textarea, select");
+      var i;
+      for (i = 0; i < elements.length; i += 1) {
+        elements[i].addEventListener("change", function () { showProtocolFields(); saveToLocalStorage(); });
+        elements[i].addEventListener("input", saveToLocalStorage);
+      }
+      getElement("generateSummaryBtn").addEventListener("click", generateSummary);
+      getElement("printBtn").addEventListener("click", function () { window.print(); });
+      getElement("resetBtn").addEventListener("click", resetCanvas);
+      getElement("suggestLevelBtn").addEventListener("click", suggestTrafficLevel);
+      getElement("applySuggestedBtn").addEventListener("click", applySuggestedLevel);
+      getElement("protocolSelect").addEventListener("change", showProtocolFields);
+    }
+
+    function runSelfTests() {
+      console.assert(document.querySelectorAll("#page1").length === 1, "Test 1 failed: Page 1 should only appear once");
+      console.assert(document.querySelectorAll("#page2").length === 1, "Test 2 failed: Page 2 should only appear once");
+      console.assert(bullet([]) === "- Not yet selected", "Test 3 failed: empty bullet list");
+      console.assert(bullet(["A", "B"]) === "- A" + NEWLINE + "- B", "Test 4 failed: bullet newline formatting");
+      console.assert(typeof calculateSuggestion().suggested === "string", "Test 5 failed: suggestion returns a string");
+      console.assert(["RED", "AMBER", "GREEN"].indexOf(calculateSuggestion().suggested) >= 0, "Test 6 failed: suggestion must be RED, AMBER, or GREEN");
+      console.assert(getElement("panel_collectThinkConsult") !== null, "Test 7 failed: Protocol 1 panel missing");
+      console.assert(getElement("panel_secondCollaborator") !== null, "Test 8 failed: Protocol 2 panel missing");
+      console.assert(getElement("panel_counterChallenge") !== null, "Test 9 failed: Protocol 3 panel missing");
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      makeChecks("capabilities", capabilityList, "capability");
+      makeChecks("evidence", evidenceList, "evidence");
+      makeChecks("reasons", reasonList, "reason");
+      runSelfTests();
+      loadFromLocalStorage();
+      showProtocolFields();
+      attachEvents();
+    });
+  </script>
+</body>
+</html>
