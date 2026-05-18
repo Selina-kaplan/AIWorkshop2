@@ -554,8 +554,46 @@
         <div class="checks" id="evidence"></div>
       </div>
 
+      <div class="section" id="redesignRationaleSection">
+        <h3>4. Redesign Rationale: What Changed and Why?</h3>
+        <p class="hint">Use this section to make the pedagogical purpose of the redesign explicit. Focus on what has changed, why it matters, and how it strengthens student learning.</p>
+        <div class="grid-2">
+          <div>
+            <label for="assignmentChange">What would you change in the assignment?</label>
+            <textarea id="assignmentChange" placeholder="Describe the specific change: task instructions, AI use, checkpoints, consultation, submission evidence, oral defence, rubric, or workflow."></textarea>
+          </div>
+          <div>
+            <label for="changeReason">Why is this change needed?</label>
+            <textarea id="changeReason" placeholder="Explain the learning problem, AI shortcut risk, authenticity issue, or gap in visible thinking that this change addresses."></textarea>
+          </div>
+          <div>
+            <label for="learningStrength">How would this strengthen the assignment?</label>
+            <textarea id="learningStrength" placeholder="Explain how the redesign strengthens analysis, judgement, verification, reflection, collaboration, authenticity, or professional practice."></textarea>
+          </div>
+          <div>
+            <label for="visibleThinkingImpact">What student thinking becomes more visible?</label>
+            <textarea id="visibleThinkingImpact" placeholder="Describe what lecturers can now see: draft progression, decisions, critique, defence, verification, rationale, or reflection."></textarea>
+          </div>
+        </div>
+        <table>
+          <thead><tr><th>Original Assignment Element</th><th>Redesigned Element</th><th>Pedagogical Reason</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><textarea id="originalElement1" placeholder="What did the original assessment require?"></textarea></td>
+              <td><textarea id="redesignedElement1" placeholder="What will be changed or added?"></textarea></td>
+              <td><textarea id="pedagogicalReason1" placeholder="Why does this improve learning or assessment quality?"></textarea></td>
+            </tr>
+            <tr>
+              <td><textarea id="originalElement2"></textarea></td>
+              <td><textarea id="redesignedElement2"></textarea></td>
+              <td><textarea id="pedagogicalReason2"></textarea></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="section">
-        <h3>4. What Will Be Assessed?</h3>
+        <h3>5. What Will Be Assessed?</h3>
         <table>
           <thead><tr><th>Assessment Criteria</th><th>Evidence Students Must Show</th></tr></thead>
           <tbody>
@@ -567,7 +605,7 @@
       </div>
 
       <div class="section">
-        <h3>5. Practical Implementation</h3>
+        <h3>6. Practical Implementation</h3>
         <table>
           <thead><tr><th>Challenge</th><th>Possible Solution</th></tr></thead>
           <tbody>
@@ -578,7 +616,7 @@
       </div>
 
       <div class="section">
-        <h3>6. Final Reflection</h3>
+        <h3>7. Final Reflection</h3>
         <label for="reflection">This redesign strengthens learning because:</label>
         <textarea id="reflection"></textarea>
       </div>
@@ -860,16 +898,25 @@
       lines.push("9. Evidence of Thinking");
       lines.push(bullet(checked("evidence")));
       lines.push("");
-      lines.push("10. Assessment Criteria and Evidence");
+      lines.push("10. Redesign Rationale: What Changed and Why");
+      lines.push("What will change: " + (val("assignmentChange") || "Not stated"));
+      lines.push("Why this change is needed: " + (val("changeReason") || "Not stated"));
+      lines.push("How this strengthens the assignment: " + (val("learningStrength") || "Not stated"));
+      lines.push("Student thinking made more visible: " + (val("visibleThinkingImpact") || "Not stated"));
+      lines.push("Specific redesign decisions:");
+      lines.push("- Original: " + (val("originalElement1") || "Not stated") + " | Redesigned: " + (val("redesignedElement1") || "Not stated") + " | Reason: " + (val("pedagogicalReason1") || "Not stated"));
+      lines.push("- Original: " + (val("originalElement2") || "Not stated") + " | Redesigned: " + (val("redesignedElement2") || "Not stated") + " | Reason: " + (val("pedagogicalReason2") || "Not stated"));
+      lines.push("");
+      lines.push("11. Assessment Criteria and Evidence");
       lines.push("- " + (val("criteria1") || "Criterion 1 not stated") + ": " + (val("show1") || "Evidence not stated"));
       lines.push("- " + (val("criteria2") || "Criterion 2 not stated") + ": " + (val("show2") || "Evidence not stated"));
       lines.push("- " + (val("criteria3") || "Criterion 3 not stated") + ": " + (val("show3") || "Evidence not stated"));
       lines.push("");
-      lines.push("11. Practical Implementation");
+      lines.push("12. Practical Implementation");
       lines.push("- Challenge: " + (val("challenge1") || "Not stated") + " | Solution: " + (val("solution1") || "Not stated"));
       lines.push("- Challenge: " + (val("challenge2") || "Not stated") + " | Solution: " + (val("solution2") || "Not stated"));
       lines.push("");
-      lines.push("12. Final Reflection");
+      lines.push("13. Final Reflection");
       lines.push(val("reflection") || "Not stated");
       getElement("summary").textContent = lines.join(NEWLINE);
       saveToLocalStorage();
@@ -971,6 +1018,8 @@
       console.assert(getElement("panel_collectThinkConsult") !== null, "Test 7 failed: Protocol 1 panel missing");
       console.assert(getElement("panel_secondCollaborator") !== null, "Test 8 failed: Protocol 2 panel missing");
       console.assert(getElement("panel_counterChallenge") !== null, "Test 9 failed: Protocol 3 panel missing");
+      console.assert(getElement("redesignRationaleSection") !== null, "Test 10 failed: redesign rationale section missing");
+      console.assert(getElement("assignmentChange") !== null, "Test 11 failed: assignment change field missing");
     }
 
     document.addEventListener("DOMContentLoaded", function () {
